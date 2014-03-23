@@ -140,11 +140,11 @@
                 (out-help prop_state state))))
 
 ;test code
-(let* (
-       (game (get-game-state state))
-       (pl-state (get-player-state-from-game-state (car game)))
-       (prop-state (get-prop-state-from-game-state (car game)))
-       )
-   (write-game-state (add-money-to-player 1 1000 pl-state) prop-state state)
-)
+;(let* (
+;       (game (get-game-state state))
+;       (pl-state (get-player-state-from-game-state (car game)))
+;       (prop-state (get-prop-state-from-game-state (car game)))
+;       )
+;   (write-game-state (add-money-to-player 1 1000 pl-state) prop-state state)
+;)
 
