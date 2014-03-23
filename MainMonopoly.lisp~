@@ -13,7 +13,11 @@
       (cdr xs)))                     ; no, one or fewer
 
 
-
+;concat two strings
+(defun concat (s1 s2)
+  (if (null s2)
+      s1
+      (chrs->str(append (str->chrs s1) (str->chrs s2)))))
 (defun get-next-number (cs  acc)
   (let* ((f (car cs))) ; the first character
     (if (or (equal f #\space) (equal f #\newline) (equal f nil))
@@ -74,30 +78,22 @@
 (defun get-prop-state-from-game-state(game-state)
   (caddr game-state))
 
-(defun contains (cs c)
-  (if (consp cs)
-      (if (equal (car cs) c)
-          t
-          (contains (cdr cs) c))
-      nil))
 ;defun remove dec from chars (returns a string)
 (defun trunk-at-dec (cs acc)
-  (if (not (contains cs #\.))
-      (chrs->str cs)
               (if (equal (car cs) #\.)
                   (chrs->str acc)
-                  (trunk-at-dec (cdr cs)(append acc (list (car cs)))))))
+                  (trunk-at-dec (cdr cs)(append acc (list (car cs))))))
 
 ;takes a list of rational numbers and convert to a string
-(defun list-of-rat-to-string (xs)
+(defun list-of-rat-to-string (xs) 
   (if (consp (cdr xs))
-      (string-append (string-append (trunk-at-dec(str->chrs(rat->str(car xs) 10)) nil) " " )
+      (concat (concat (trunk-at-dec(str->chrs(rat->str(car xs) 10)) nil) " " )
               (list-of-rat-to-string (cdr xs)))
-      (string-append (trunk-at-dec(str->chrs(rat->str(car xs) 10)) nil) (chrs->str (list #\newline)))))
+      (concat (trunk-at-dec(str->chrs(rat->str(car xs) 10)) nil) (chrs->str (list #\newline)))))
 
 (defun list-of-lists-to-string (xss)
                          (if (consp (cdr xss))
-                             (string-append (list-of-rat-to-string (car xss)) 
+                             (concat (list-of-rat-to-string (car xss)) 
                                      (list-of-lists-to-string (cdr xss)))
                              (chrs->str(rdc(str->chrs(list-of-rat-to-string (car xss)))))
                              ))
@@ -114,24 +110,4 @@
                          (cons (car player-state) 
                                (add-money-to-player (- pnum 1) n 
                                                     (cdr player-state)))))
-
-(defun write-game-state (player-state state)
-  (mv-let (error-close state)
-                 (string-list->file "player_state1.txt"
-                                    (list
-                                     (list-of-lists-to-string
-                                       player-state))
-                                    state)
-            (if error-close
-                (mv error-close state)
-                (mv (string-append ", output file: " "player_state.txt")
-                    state))))
-
-;test code
-(let* (
-       (game (get-game-state state))
-       (pl-state (get-player-state-from-game-state (car game)))
-       )
-   (write-game-state (add-money-to-player 1 1000 pl-state) state)
-)
 
