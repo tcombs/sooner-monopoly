@@ -138,15 +138,6 @@
                 (mv error-close state)
                 (out-help prop_state state))))
 
-(defun read-property-info(state)
-  (mv-let (input-string error-open state)
-          (file->string "PROPERTIES.txt" state)
-     (if error-open
-         (mv error-open state)
-         (mv (chrs-to-list-of-lists
-                 (str->chrs input-string) nil) 
-             state))))
-
 ;test code
 ;(let* (
 ;       (game (get-game-state state))
