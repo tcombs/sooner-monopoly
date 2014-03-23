@@ -115,7 +115,20 @@
                                (add-money-to-player (- pnum 1) n 
                                                     (cdr player-state)))))
 
-(defun write-game-state (player-state state)
+
+(defun out-help (prop_state state)
+  (mv-let (error-close state)
+                 (string-list->file "prop_state1.txt"
+                                    (list
+                                     (list-of-lists-to-string
+                                       prop_state))
+                                    state)
+            (if error-close
+                (mv error-close state)
+                (mv (string-append ", output file: " "prop_state1.txt")
+                    state))))
+
+(defun write-game-state (player-state prop_state state)
   (mv-let (error-close state)
                  (string-list->file "player_state1.txt"
                                     (list
@@ -124,14 +137,14 @@
                                     state)
             (if error-close
                 (mv error-close state)
-                (mv (string-append ", output file: " "player_state.txt")
-                    state))))
+                (out-help prop_state state))))
 
 ;test code
 (let* (
        (game (get-game-state state))
        (pl-state (get-player-state-from-game-state (car game)))
+       (prop-state (get-prop-state-from-game-state (car game)))
        )
-   (write-game-state (add-money-to-player 1 1000 pl-state) state)
+   (write-game-state (add-money-to-player 1 1000 pl-state) prop-state state)
 )
 
