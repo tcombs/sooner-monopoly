@@ -1,0 +1,28 @@
+(set-state-ok t)
+(include-book "MainMonopoly")
+
+(defun add-money (n player)
+           (let* ((pnum (car player))
+                  (space (car (cdr player)))
+                  (money (car (cdr(cdr player))))
+                  (els (cdr(cdr(cdr player))))
+                  )
+             (cons pnum (cons space (cons (+ money n) els)))))
+
+(defun add-money-to-player (pnum n player-state)
+                     (if (equal pnum 1)
+                         (cons (add-money n (car player-state)) (cdr player-state))
+                         (cons (car player-state) 
+                               (add-money-to-player (- pnum 1) n 
+                                                    (cdr player-state)))))
+(defun main(state)
+  (let* (
+       (game (get-game-state state))
+       (game-state (car game))
+       (next-move (car (get-next-move-from-game-state game-state)))
+       (player-state (get-player-state-from-game-state game-state))
+       (prop-state (get-prop-state-from-game-state game-state))
+       (pnum (car next-move))
+       (money (cadr next-move))
+       )
+   (write-game-state (add-money-to-player pnum money player-state) prop-state state)))
