@@ -1,10 +1,8 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="..\..\..\..\..\Documents\detective\Assets\Scripts\UI\Debug\DebugOptionsMenuViewModel.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GameManager.cs">
     <Files>
-      <File FileName="..\..\..\..\..\Documents\detective\Assets\Scripts\UI\SolveScreen\SolveScreenViewModel.cs" Line="681" Column="2" />
-      <File FileName="..\..\..\..\..\Documents\detective\Assets\Scripts\GameData\DataContainters - In Game\ClueManager.cs" Line="355" Column="2" />
-      <File FileName="..\..\..\..\..\Documents\detective\Assets\Scripts\UI\Debug\DebugOptionsMenuViewModel.cs" Line="463" Column="5" />
+      <File FileName="Assets\Scripts\GameManager.cs" Line="28" Column="119" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

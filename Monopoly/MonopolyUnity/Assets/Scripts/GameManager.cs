@@ -2,6 +2,7 @@
 using System.Collections;
 using System;
 using System.IO;
+using System.Diagnostics;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class GameManager : MonoBehaviour
 
 	private static readonly string PLAYER_STATE_PATH = "/ACL2Modules/player_state.txt";
 
+	private static readonly string PLAYER_BUY = "/ACL2Modules/BuyProperty";
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -19,6 +22,20 @@ public class GameManager : MonoBehaviour
 		UpdatePlayer (1, true);
 		UpdatePlayer (2, true);
 		UpdatePlayer (3, true);
+
+		try{
+			Process myProcess = new Process();
+			myProcess.StartInfo.FileName = "C:\\Users\\Colton\\Documents\\sooner-monopoly\\Monopoly\\MonopolyUnity\\Assets\\ACL2Modules\\BuyProperty";
+
+			myProcess.Start();
+			myProcess.WaitForExit();
+		}
+		catch(Exception e)
+		{
+			UnityEngine.Debug.LogError (e);
+		}
+
+		UnityEngine.Debug.Log("Finished process");
 	}
 
 	public void UpdatePlayer(int playerID, bool import)
@@ -64,7 +81,7 @@ public class GameManager : MonoBehaviour
 			player4.numOfRollsInJail = int.Parse(player4States[4]);
 			break;
 		default:
-			Debug.LogError("Import error in GameManager");
+			//Debug.LogError("Import error in GameManager");
 			break;
 		}
 	}
