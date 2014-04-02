@@ -1,0 +1,14 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace />
+  <MonoDevelop.Ide.Workbench ActiveDocument="..\..\..\..\..\Documents\detective\Assets\Scripts\UI\Debug\DebugOptionsMenuViewModel.cs">
+    <Files>
+      <File FileName="..\..\..\..\..\Documents\detective\Assets\Scripts\UI\SolveScreen\SolveScreenViewModel.cs" Line="681" Column="2" />
+      <File FileName="..\..\..\..\..\Documents\detective\Assets\Scripts\GameData\DataContainters - In Game\ClueManager.cs" Line="355" Column="2" />
+      <File FileName="..\..\..\..\..\Documents\detective\Assets\Scripts\UI\Debug\DebugOptionsMenuViewModel.cs" Line="463" Column="5" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

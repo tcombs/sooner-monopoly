@@ -1,0 +1,25 @@
+(set-state-ok t)
+(include-book "MainMonopoly")
+
+(defun change-one-player (space player)
+           (let* ((pnum (car player))
+                  (els (cdr(cdr player)))
+                  )
+             (cons pnum (cons space els))))
+
+(defun change-player-space (pnum space player-state)
+  (if (equal pnum 1)
+      (cons (change-one-player space (car player-state)) (cdr player-state))
+      (cons (car player-state) (change-player-space (- pnum 1) space (cdr player-state)))))
+
+(defun main(state)
+  (let* (
+       (game (get-game-state state))
+       (game-state (car game))
+       (next-move (car (get-next-move-from-game-state game-state)))
+       (player-state (get-player-state-from-game-state game-state))
+       (prop-state (get-prop-state-from-game-state game-state))
+       (pnum (car next-move))
+       (space (cadr next-move))
+       )
+   (write-game-state (change-player-space pnum space player-state) prop-state state)))
