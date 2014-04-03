@@ -12,10 +12,8 @@ public class MoveTokenToSpace : MonoBehaviour {
 	public Transform cornerFP;
 	public Transform cornerToJail;
 
-	void OnMouseOver()
+	public void TriggerMove()
 	{
-		if(Input.GetMouseButtonDown(0))
-		{
 			Transform parent = spaceObject.parent.transform;
 
 			GameObject go = GameObject.Find("playerToken").gameObject;
@@ -57,6 +55,5 @@ public class MoveTokenToSpace : MonoBehaviour {
 			{*/
 				iTween.MoveTo(go, nextLocal, 3.0f);
 			//}
-		}
 	}
 }

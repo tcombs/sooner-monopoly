@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Player : MonoBehaviour 
 {
-	public int playerPosition;
+	public int playerID;
 	public int spaceOn;
 	public int money;
 	public int numOfGOJCards;
