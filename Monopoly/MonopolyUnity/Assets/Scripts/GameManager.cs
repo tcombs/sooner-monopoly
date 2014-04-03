@@ -2,18 +2,31 @@
 using System.Collections;
 using System;
 using System.IO;
-using System.Diagnostics;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
+	private static GameManager _instance;
+	public static GameManager instance{ get {return _instance;}}
+
 	public Player player1;
 	public Player player2;
 	public Player player3;
 	public Player player4;
 
+	public List<UIButton> spaces; 
+
 	private static readonly string PLAYER_STATE_PATH = "/ACL2Modules/player_state.txt";
 
-	private static readonly string PLAYER_BUY = "/ACL2Modules/BuyProperty";
+	[HideInInspector]
+	public int currentTurnPlayerID;
+
+	//private static readonly string PLAYER_BUY = "/ACL2Modules/BuyProperty";
+
+	protected void Awake()
+	{
+		_instance = this;
+	}
 
 	// Use this for initialization
 	void Start () 
@@ -23,19 +36,21 @@ public class GameManager : MonoBehaviour
 		UpdatePlayer (2, true);
 		UpdatePlayer (3, true);
 
-		try{
+		currentTurnPlayerID = player1.playerID;
+
+		/*try{
 			Process myProcess = new Process();
-			myProcess.StartInfo.FileName = "C:\\Users\\Colton\\Documents\\sooner-monopoly\\Monopoly\\MonopolyUnity\\Assets\\ACL2Modules\\BuyProperty";
+			myProcess.StartInfo.FileName = "C:\\Users\\Colton\\Documents\\sooner-monopoly\\Monopoly\\MonopolyUnity\\Assets\\ACL2Modules\\BuyProperty.exe";
 
 			myProcess.Start();
-			myProcess.WaitForExit();
+			//myProcess.WaitForExit();
 		}
 		catch(Exception e)
 		{
 			UnityEngine.Debug.LogError (e);
 		}
 
-		UnityEngine.Debug.Log("Finished process");
+		UnityEngine.Debug.Log("Finished process");*/
 	}
 
 	public void UpdatePlayer(int playerID, bool import)
@@ -50,7 +65,7 @@ public class GameManager : MonoBehaviour
 		{
 		case 0:
 			string[] player1States = lines[0].Split(' ');
-			player1.playerPosition = int.Parse(player1States[0]);
+			player1.playerID = int.Parse(player1States[0]);
 			player1.spaceOn = int.Parse(player1States[1]);
 			player1.money = int.Parse(player1States[2]);
 			player1.numOfGOJCards = int.Parse(player1States[3]);
@@ -58,7 +73,7 @@ public class GameManager : MonoBehaviour
 			break;
 		case 1:
 			string[] player2States = lines[1].Split(' ');
-			player2.playerPosition = int.Parse(player2States[0]);
+			player2.playerID = int.Parse(player2States[0]);
 			player2.spaceOn = int.Parse(player2States[1]);
 			player2.money = int.Parse(player2States[2]);
 			player2.numOfGOJCards = int.Parse(player2States[3]);
@@ -66,7 +81,7 @@ public class GameManager : MonoBehaviour
 			break;
 		case 2:
 			string[] player3States = lines[2].Split(' ');
-			player3.playerPosition = int.Parse(player3States[0]);
+			player3.playerID = int.Parse(player3States[0]);
 			player3.spaceOn = int.Parse(player3States[1]);
 			player3.money = int.Parse(player3States[2]);
 			player3.numOfGOJCards = int.Parse(player3States[3]);
@@ -74,7 +89,7 @@ public class GameManager : MonoBehaviour
 			break;
 		case 3:
 			string[] player4States = lines[3].Split(' ');
-			player4.playerPosition = int.Parse (player4States[0]);
+			player4.playerID = int.Parse (player4States[0]);
 			player4.spaceOn = int.Parse(player4States[1]);
 			player4.money = int.Parse(player4States[2]);
 			player4.numOfGOJCards = int.Parse(player4States[3]);
