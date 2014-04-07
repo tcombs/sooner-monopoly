@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System;
 
 public class ACL2Manager : MonoBehaviour {
 
@@ -29,9 +30,31 @@ public class ACL2Manager : MonoBehaviour {
 		_instance = this;
 	}
 
-	public IEnumerator RunACL2(ACL2Options choice, string[] arguments)
+	public IEnumerator RunACL2(ACL2Options choice)
 	{
+		Process p = new Process();
+
 		//Do file io to write args and then call exe
+		switch(choice)
+		{
+		case ACL2Options.RollDice:
+		{
+		try{
+			p.StartInfo.FileName = "C:\\Users\\Colton\\Documents\\sooner-monopoly\\Monopoly\\MonopolyUnity\\Assets\\ACL2Modules\\BuyProperty.exe";
+
+			p.Start();
+			//myProcess.WaitForExit();
+		}
+		catch(Exception e)
+		{
+			UnityEngine.Debug.LogError (e);
+		}
+			break;
+		}
+		default:
+			break;
+		}
+
 
 		yield return 0;
 	}
