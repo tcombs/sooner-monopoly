@@ -14,9 +14,9 @@ public class GameManager : MonoBehaviour
 	public Player player3;
 	public Player player4;
 
-	public List<UIButton> spaces; 
+	public List<GameObject> spaces; 
 
-	private static readonly string PLAYER_STATE_PATH = "/ACL2Modules/player_state.txt";
+	private static readonly string PLAYER_STATE_PATH = "/Resources/ACL2Modules/player_state.txt";
 
 	[HideInInspector]
 	public int currentTurnPlayerID;
