@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
 
 	public List<GameObject> spaces; 
 
-	private static readonly string PLAYER_STATE_PATH = "/Resources/ACL2Modules/player_state.txt";
+	private static readonly string PLAYER_STATE_PATH = "Resources/ACL2Modules/player_state.txt";
 
 	[HideInInspector]
 	public int currentTurnPlayerID;
@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
 
 	public void UpdatePlayer(int playerID, bool import)
 	{
-		StreamReader sr = new StreamReader(Application.dataPath + PLAYER_STATE_PATH);
+		StreamReader sr = new StreamReader(PLAYER_STATE_PATH);
 		string fileContents = sr.ReadToEnd();
 		sr.Close();
 		

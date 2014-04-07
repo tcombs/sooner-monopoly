@@ -37,11 +37,15 @@ public class ACL2Manager : MonoBehaviour {
 
 	public IEnumerator RunACL2(ACL2Options choice, string[] args)
 	{
-		asset = Resources.Load(operativeFileName+".txt") as TextAsset;
-		writer = new StreamWriter("Resources/"+operativeFileName+".txt");
-		writer.WriteLine(args);
+		asset = Resources.Load("/ACL2Modules/"+operativeFileName+".txt") as TextAsset;
+		writer = new StreamWriter("Resources/ACL2Modules/"+operativeFileName+".txt");
+		foreach(string arg in args)
+		{
+			writer.Write(arg);
+		}
+		writer.Close ();
 
-		/*Process p = new Process();
+		Process p = new Process();
 
 		//Do file io to write args and then call exe
 		switch(choice)
@@ -49,7 +53,7 @@ public class ACL2Manager : MonoBehaviour {
 		case ACL2Options.RollDice:
 		{
 		try{
-			p.StartInfo.FileName = "C:\\Users\\Colton\\Documents\\sooner-monopoly\\Monopoly\\MonopolyUnity\\Assets\\ACL2Modules\\BuyProperty.exe";
+			p.StartInfo.FileName = "C:\\Users\\Colton\\Documents\\sooner-monopoly\\Monopoly\\MonopolyUnity\\Resources\\ACL2Modules\\BuyProperty.exe";
 
 			p.Start();
 			//myProcess.WaitForExit();
@@ -62,7 +66,7 @@ public class ACL2Manager : MonoBehaviour {
 		}
 		default:
 			break;
-		}*/
+		}
 
 
 		yield return 0;
