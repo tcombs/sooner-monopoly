@@ -61,11 +61,24 @@
           (file->string "next_move.txt" state)
      (if error-open
          (mv error-open state)
-         (let* ((player-state (car (get-player-state state)))
-                (prop-state (car (get-prop-state state))))
+         (mv-let (player-state state) 
+                 (get-player-state state)
+            (mv-let (prop-state state)
+                    (get-prop-state state)
            (mv (append (list (chrs-to-list-of-lists 
                  (str->chrs input-string) nil)) (list player-state) (list prop-state)) 
-             state)))))
+             state))))))
+
+;(defun get-game-state (state)
+;  (mv-let (input-string error-open state)
+;          (file->string "next_move.txt" state)
+;     (if error-open
+;         (mv error-open state)
+;         (let* ((player-state (car (get-player-state state)))
+;                (prop-state (car (get-prop-state state))))
+;           (mv (append (list (chrs-to-list-of-lists 
+;                 (str->chrs input-string) nil)) (list player-state) (list prop-state)) 
+;             state)))))
 
 (defun get-next-move-from-game-state(game-state)
   (car game-state))
@@ -155,4 +168,3 @@
 ;       )
 ;   (write-game-state (add-money-to-player 1 1000 pl-state) prop-state state)
 ;)
-
