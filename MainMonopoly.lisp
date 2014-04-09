@@ -1,7 +1,7 @@
-(set-state-ok t)
 (include-book "io-utilities" :dir :teachpacks)
 (include-book "list-utilities" :dir :teachpacks)
-
+(set-state-ok t)
+:set-state-ok t
 (defun rac (xs)
   (if (consp (cdr xs)) ; more than one elem?
       (rac (cdr xs))   ; yes, more than one
