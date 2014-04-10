@@ -1,17 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Property : MonoBehaviour {
 
-	public float price;
-	public float mortgage;
-	public float name;
-	public float id;
+	public int price;
+	public int upgradePrice;
+	public int mortgageValue;
+	public int demortgageValue;
+	public List<int> rentValues;
+	public string propName;
+	public int id;
+	public bool owned;
 	public UIButton buyPropButton;
 
 	// Use this for initialization
 	void Start () {
-	
+		rentValues = new List<int>();
 	}
 	
 	// Update is called once per frame
@@ -19,9 +24,12 @@ public class Property : MonoBehaviour {
 	
 	}
 
-	void OnLand()
+	public void OnLand()
 	{
-
+		if(GameManager.instance.GetPlayerOnSpace(id).money > price && price > 0)
+		{
+			buyPropButton.gameObject.SetActive(true);
+		}
 
 	}
 }

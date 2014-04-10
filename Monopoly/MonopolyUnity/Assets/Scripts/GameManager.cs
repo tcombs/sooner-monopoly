@@ -14,9 +14,10 @@ public class GameManager : MonoBehaviour
 	public Player player3;
 	public Player player4;
 
-	public List<GameObject> spaces; 
+	public List<Property> spaces; 
 
 	private static readonly string PLAYER_STATE_PATH = "Resources/ACL2Modules/player_state.txt";
+	private static readonly string PROPERTY_DATA = "Resources/PROPERTIES.txt";
 
 	[HideInInspector]
 	public int currentTurnPlayerID;
@@ -31,10 +32,12 @@ public class GameManager : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		UpdatePlayer (0, true);
+		NewGame();
+		SetupProperties();
 		UpdatePlayer (1, true);
 		UpdatePlayer (2, true);
 		UpdatePlayer (3, true);
+		UpdatePlayer (4, true);
 
 		currentTurnPlayerID = player1.playerID;
 	}
@@ -49,7 +52,7 @@ public class GameManager : MonoBehaviour
 
 		switch (playerID)
 		{
-		case 0:
+		case 1:
 			string[] player1States = lines[0].Split(' ');
 			player1.playerID = int.Parse(player1States[0]);
 			player1.spaceOn = int.Parse(player1States[1]);
@@ -58,7 +61,7 @@ public class GameManager : MonoBehaviour
 			player1.numOfRollsInJail = int.Parse(player1States[4]);
 			player1.ValuesChanged(newGameChange);
 			break;
-		case 1:
+		case 2:
 			string[] player2States = lines[1].Split(' ');
 			player2.playerID = int.Parse(player2States[0]);
 			player2.spaceOn = int.Parse(player2States[1]);
@@ -67,7 +70,7 @@ public class GameManager : MonoBehaviour
 			player2.numOfRollsInJail = int.Parse(player2States[4]);
 			player2.ValuesChanged(newGameChange);
 			break;
-		case 2:
+		case 3:
 			string[] player3States = lines[2].Split(' ');
 			player3.playerID = int.Parse(player3States[0]);
 			player3.spaceOn = int.Parse(player3States[1]);
@@ -76,7 +79,7 @@ public class GameManager : MonoBehaviour
 			player3.numOfRollsInJail = int.Parse (player3States[4]);
 			player3.ValuesChanged(newGameChange);
 			break;
-		case 3:
+		case 4:
 			string[] player4States = lines[3].Split(' ');
 			player4.playerID = int.Parse (player4States[0]);
 			player4.spaceOn = int.Parse(player4States[1]);
@@ -91,6 +94,16 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+	private void NewGame()
+	{
+		StreamWriter writer = new StreamWriter("Resources/ACL2Modules/player_state.txt");
+		for(int i = 1; i < 5; i++)
+		{
+			writer.WriteLine(i + " 0 1500 0 0");
+		}
+		writer.Close();
+	}
+
 	public Player GetPlayerOnSpace(int spaceID)
 	{
 		if(player1.spaceOn == spaceID)
@@ -101,7 +114,40 @@ public class GameManager : MonoBehaviour
 			return player3;
 		else
 			return player4;
+	}
 
+	public Player GetPlayerWithID(int playerID)
+	{
+		if(player1.playerID == playerID)
+			return player1;
+		else if(player2.playerID == playerID)
+			return player2;
+		else if(player3.playerID == playerID)
+			return player3;
+		else
+			return player4;
+	}
 
+	private void SetupProperties()
+	{
+		StreamReader sr = new StreamReader(PROPERTY_DATA);
+		string fileContents = sr.ReadToEnd();
+		sr.Close();
+
+		string[] lines = fileContents.Split("\n"[0]);
+		foreach(string line in lines)
+		{
+			string formattedLine = line.Replace("\r","");
+			formattedLine = formattedLine.Replace("\n","");
+			string[] lineContents = formattedLine.Split(' ');
+			int idToModify = int.Parse(lineContents[0]);
+			spaces[idToModify].price = int.Parse(lineContents[1]);
+			spaces[idToModify].upgradePrice = int.Parse(lineContents[2]);
+			spaces[idToModify].mortgageValue = int.Parse(lineContents[3]);
+			spaces[idToModify].demortgageValue = int.Parse(lineContents[4]);
+			for(int i = 5; i < 11; i++)
+				spaces[idToModify].rentValues.Add(int.Parse(lineContents[i]));
+
+		}
 	}
 }

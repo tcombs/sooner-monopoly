@@ -117,6 +117,8 @@ public class ACL2Manager : MonoBehaviour {
 		}
 
 		p.Start();
+		p.WaitForExit();
+		p.Close();
 		yield return 0;
 	}
 }

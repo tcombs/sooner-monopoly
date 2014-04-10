@@ -18,7 +18,10 @@ public class RollDice : MonoBehaviour {
 		StartCoroutine(ACL2Manager.instance.RunACL2(ACL2Manager.ACL2Options.RollDice, args));
 
 		//In place of calling the roll module()
-		GameManager.instance.spaces[(randDie1+randDie2+GameManager.instance.player1.spaceOn)%40].GetComponentInChildren<MoveTokenToSpace>().TriggerMove();
-		GameManager.instance.player1.spaceOn = (randDie1+randDie2+GameManager.instance.player1.spaceOn)%40;
+		GameManager.instance.spaces[(randDie1+randDie2+GameManager.instance.player1.spaceOn)%40].gameObject.GetComponentInChildren<MoveTokenToSpace>().TriggerMove();
+		GameManager.instance.UpdatePlayer(playerIDRolled, false);
+		Player playerRolled = GameManager.instance.GetPlayerWithID(playerIDRolled);
+
+		GameManager.instance.spaces[playerRolled.spaceOn].OnLand();
 	}
 }
