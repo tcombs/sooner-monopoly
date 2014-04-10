@@ -11,16 +11,6 @@ public class Player : MonoBehaviour
 	public UILabel playerIDLabel;
 	public UILabel playerMoneyLabel;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-
-	void Update()
-	{
-
-	}
-
 	public void ValuesChanged(bool newGameChange)
 	{
 		if(newGameChange)

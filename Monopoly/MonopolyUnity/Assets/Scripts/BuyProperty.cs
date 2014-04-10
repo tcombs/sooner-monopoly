@@ -3,16 +3,6 @@ using System.Collections;
 
 public class BuyProperty : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
 	void OnClick()
 	{
 		int playerIDBuying = GameManager.instance.currentTurnPlayerID;
