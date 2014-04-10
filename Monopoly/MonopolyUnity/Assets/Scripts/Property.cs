@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Property : MonoBehaviour {
-
+	
 	public int price;
 	public int upgradePrice;
 	public int mortgageValue;
+	public int upgradeLevel;
+	public bool isMortgaged;
 	public int demortgageValue;
 	public List<int> rentValues;
 	public string propName;
@@ -38,9 +40,9 @@ public class Property : MonoBehaviour {
 		}
 	}
 
-	public void PlaceHotel()
+	void OnClick()
 	{
-
+		Debug.Log("pop");
 	}
 
 	public void ChanceActivated()

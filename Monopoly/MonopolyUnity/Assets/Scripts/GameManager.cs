@@ -14,16 +14,18 @@ public class GameManager : MonoBehaviour
 	public Player player3;
 	public Player player4;
 
+	public bool upgradingProperty = false;
+	public bool tradingProperty = false;
+
 	public List<Property> spaces; 
 
 	private static readonly string PLAYER_STATE_PATH = "Resources/ACL2Modules/player_state.txt";
+	private static readonly string PROPERTY_STATE_PATH = "Resources/ACL2Modules/prop_state.txt";
 	private static readonly string PROPERTY_DATA = "Resources/PROPERTIES.txt";
 	private static readonly string PROPERTY_NAME_DATA = "Resources/PROPERTYNAMES.txt";
 
 	[HideInInspector]
 	public int currentTurnPlayerID;
-
-	//private static readonly string PLAYER_BUY = "/ACL2Modules/BuyProperty";
 
 	protected void Awake()
 	{
@@ -35,6 +37,8 @@ public class GameManager : MonoBehaviour
 	{
 		NewGame();
 		SetupProperties();
+		InitPropertyStates();
+		UpdatePropertyState();
 		UpdatePlayer (1, true);
 		UpdatePlayer (2, true);
 		UpdatePlayer (3, true);
@@ -49,9 +53,6 @@ public class GameManager : MonoBehaviour
 			currentTurnPlayerID = 1;
 		else
 			currentTurnPlayerID++;
-
-		//GameObject.Find ("BuyPropertyButton").GetComponent<UIButton>().isEnabled = false;
-		//GameObject.Find ("RollButton").GetComponent<UIButton>().isEnabled = true;
 	}
 
 	public void UpdatePlayer(int playerID, bool newGameChange)
@@ -108,7 +109,7 @@ public class GameManager : MonoBehaviour
 
 	private void NewGame()
 	{
-		StreamWriter writer = new StreamWriter("Resources/ACL2Modules/player_state.txt");
+		StreamWriter writer = new StreamWriter(PLAYER_STATE_PATH);
 		for(int i = 1; i < 5; i++)
 		{
 			writer.WriteLine(i + " 0 1500 0 0");
@@ -175,5 +176,44 @@ public class GameManager : MonoBehaviour
 
 			spaces[id].propName = lineData[1].Replace("_"," ").Replace("\r","");
 		}
+	}
+
+	private void InitPropertyStates()
+	{
+		StreamWriter writer = new StreamWriter(PROPERTY_STATE_PATH);
+		for(int i = 1; i < 40; i++)
+		{
+			if(spaces[i].propName != "CChest" && spaces[i].propName != "Chance" && spaces[i].propName != "Austin" && 
+			   spaces[i].propName != "No Parking" && spaces[i].propName != "Go To Austin")
+			{
+				writer.WriteLine(i.ToString() + " -1 -1 0");
+			}
+		}
+
+		writer.Close();
+	}
+
+	public void UpdatePropertyState()
+	{
+		StreamReader sr = new StreamReader(PROPERTY_STATE_PATH);
+		string fileContents = sr.ReadToEnd();
+
+		string[] lines = fileContents.Split("\n"[0]);
+		foreach(string line in lines)
+		{
+			string formattedLine = line.Replace("\r","");
+			formattedLine = formattedLine.Replace("\n","");
+
+			if(formattedLine != "")
+			{
+				string[] lineContents = formattedLine.Split(' ');
+				int idToModify = int.Parse(lineContents[0]);
+				spaces[idToModify].playerIDWhoOwns = int.Parse(lineContents[1]);
+				spaces[idToModify].upgradeLevel = int.Parse(lineContents[2]);
+				spaces[idToModify].isMortgaged = int.Parse(lineContents[3]) == 0;
+			}
+		}
+
+		sr.Close();
 	}
 }
