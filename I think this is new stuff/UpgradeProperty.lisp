@@ -1,7 +1,23 @@
 (include-book "io-utilities" :dir :teachpacks)
 (include-book "list-utilities" :dir :teachpacks)
 (set-state-ok t)
-:set-state-ok t
+
+(defun mainx (f-in f-out state)
+ (mv-let (input-string err-open state)
+ (file->string f-in state)
+ (if err-open
+ (mv err-open state)
+ (mv-let (err-close state)
+ (string-list->file f-out
+ (list input-string)
+ state)
+ (if err-close
+ (mv err-close state)
+ (mv (string-append "input file: "
+ (string-append f-in
+ (string-append ", output file: " f-out)))
+ state))))))
+
 (defun rac (xs)
   (if (consp (cdr xs)) ; more than one elem?
       (rac (cdr xs))   ; yes, more than one
@@ -12,11 +28,9 @@
       (cons (car xs) (rdc (cdr xs))) ; yes, more than one
       (cdr xs)))                     ; no, one or fewer
 
-
-
 (defun get-next-number (cs  acc)
   (let* ((f (car cs))) ; the first character
-    (if (or (equal f #\space) (equal f #\newline) (equal f nil))
+    (if (or (equal f #\space) (equal f #\Newline) (equal f nil))
         (list (str->rat (chrs->str acc)) cs)
         (get-next-number (cdr cs) (append acc (list f))))))
 
@@ -25,7 +39,7 @@
          (n (car num-chars))
          (new-cs (cadr num-chars))
          (f (car new-cs)))
-    (if (or(equal f #\newline) (equal new-cs nil))
+    (if (or (equal f #\Newline) (equal new-cs nil))
         (list (append acc (list n)) (cdr new-cs))
         (get-next-line (cdr new-cs) (append acc (list n))))))
 
@@ -47,6 +61,7 @@
          (mv (chrs-to-list-of-lists
                  (str->chrs input-string) nil) 
              state))))
+
 (defun get-prop-state (state)
   (mv-let (input-string error-open state)
           (file->string "prop_state.txt" state)
@@ -106,7 +121,7 @@
   (if (consp (cdr xs))
       (string-append (string-append (trunk-at-dec(str->chrs(rat->str(car xs) 10)) nil) " " )
               (list-of-rat-to-string (cdr xs)))
-      (string-append (trunk-at-dec(str->chrs(rat->str(car xs) 10)) nil) (chrs->str (list #\newline)))))
+      (string-append (trunk-at-dec(str->chrs(rat->str(car xs) 10)) nil) (chrs->str (list #\Newline)))))
 
 (defun list-of-lists-to-string (xss)
                          (if (consp (cdr xss))
@@ -114,24 +129,24 @@
                                      (list-of-lists-to-string (cdr xss)))
                              (chrs->str(rdc(str->chrs(list-of-rat-to-string (car xss)))))
                              ))
-;(defun add-money (n player)
-;           (let* ((pnum (car player))
-;                  (space (car (cdr player)))
-;                  (money (car (cdr(cdr player))))
-;                  (els (cdr(cdr(cdr player))))
-;                  )
-;             (cons pnum (cons space (cons (+ money n) els)))))
-;(defun add-money-to-player (pnum n player-state)
-;                     (if (equal pnum 1)
-;                         (cons (add-money n (car player-state)) (cdr player-state))
-;                         (cons (car player-state) 
-;                               (add-money-to-player (- pnum 1) n 
-;                                                    (cdr player-state)))))
+(defun add-money (n player)
+           (let* ((pnum (car player))
+                  (space (car (cdr player)))
+                  (money (car (cdr(cdr player))))
+                  (els (cdr(cdr(cdr player))))
+                  )
+             (cons pnum (cons space (cons (+ money n) els)))))
+(defun add-money-to-player (pnum n player-state)
+                     (if (equal pnum 1)
+                         (cons (add-money n (car player-state)) (cdr player-state))
+                         (cons (car player-state) 
+                               (add-money-to-player (- pnum 1) n 
+                                                    (cdr player-state)))))
 
 
 (defun out-help (prop-state state)
   (mv-let (error-close state)
-                 (string-list->file "prop_state1.txt"
+                 (string-list->file "prop_state.txt"
                                     (list
                                      (list-of-lists-to-string
                                        prop-state))
@@ -142,7 +157,7 @@
 
 (defun write-game-state (player-state prop_state state)
   (mv-let (error-close state)
-                 (string-list->file "player_state1.txt"
+                 (string-list->file "player_state.txt"
                                     (list
                                      (list-of-lists-to-string
                                        player-state))
@@ -160,35 +175,34 @@
                  (str->chrs input-string) nil) 
              state))))
 
-;test code
-;(let* (
-;       (game (get-game-state state))
-;       (pl-state (get-player-state-from-game-state (car game)))
-;       (prop-state (get-prop-state-from-game-state (car game)))
-;       )
-;   (write-game-state (add-money-to-player 1 1000 pl-state) prop-state state)
-;)
 
-(defun change-one-player (space player)
-           (let* ((pnum (car player))
-                  (els (cdr(cdr player)))
-                  )
-             (cons pnum (cons space els))))
 
-(defun change-player-space (pnum space player-state)
-  (if (equal pnum 1)
-      (cons (change-one-player space (car player-state)) (cdr player-state))
-      (cons (car player-state) (change-player-space (- pnum 1) space (cdr player-state)))))
+(defun help-me(property)
+  (let* (
+         (prop-num (car property))
+         (pl-num (cadr property))
+         (up (caddr property))
+         (rest-p (cdddr property))
+         )
+    (cons prop-num
+          (cons pl-num
+                (cons (+ up 1)
+                      rest-p)))))
+
+(defun up-prop (prop-num prop-state)
+                     (if (equal prop-num (car(car prop-state)))
+                         (cons (help-me (car prop-state)) (cdr prop-state))
+                         (cons (car prop-state) 
+                               (up-prop prop-num 
+                                                    (cdr prop-state)))))
 
 (defun main(state)
-  (mv-let (game state)
+    (mv-let (game-state state)
           (get-game-state state)
   (let* (
-       (game-state (car game))
        (next-move (car (get-next-move-from-game-state game-state)))
        (player-state (get-player-state-from-game-state game-state))
        (prop-state (get-prop-state-from-game-state game-state))
-       (pnum (car next-move))
-       (space (cadr next-move))
+       (prop-num (car next-move))
        )
-   (write-game-state (change-player-space pnum space player-state) prop-state state))))
+   (write-game-state player-state (up-prop prop-num prop-state) state))))
