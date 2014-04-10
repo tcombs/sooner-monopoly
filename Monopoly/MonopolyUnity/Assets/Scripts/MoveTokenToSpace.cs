@@ -16,7 +16,7 @@ public class MoveTokenToSpace : MonoBehaviour {
 	{
 			Transform parent = spaceObject.parent.transform;
 
-			GameObject go = GameObject.Find("playerToken").gameObject;
+			GameObject go = GameObject.Find("player1Token").gameObject;
 
 			go.transform.localRotation = new Quaternion(parent.localRotation.x, parent.localRotation.y, parent.localRotation.z,
 			                                            parent.localRotation.w);

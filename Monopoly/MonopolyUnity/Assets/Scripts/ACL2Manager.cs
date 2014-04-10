@@ -24,11 +24,11 @@ public class ACL2Manager : MonoBehaviour {
 		UpgradeProperty
 	}
 	
-	private readonly string BUY_PROPERTY_EXE = "C:\\Users\\Colton\\Documents\\sooner-monopoly\\Monopoly\\MonopolyUnity\\Resources\\ACL2Modules\\BuyProperty.exe"; 
-	private readonly string ROLL_DICE_EXE = @"C:\Users\colto_000\Documents\sooner-monopoly\Monopoly\MonopolyUnity\Resources\ACL2Modules\RollBat.bat";
-	private readonly string MOVE_PLAYER_EXE = "C:\\Users\\Colton\\Documents\\sooner-monopoly\\Monopoly\\MonopolyUnity\\Resources\\ACL2Modules\\MovePlayerTo.exe";
-	private readonly string PAY_PLAYER_EXE = "C:\\Users\\Colton\\Documents\\sooner-monopoly\\Monopoly\\MonopolyUnity\\Resources\\ACL2Modules\\PayToPlayer.exe";
-	private readonly string UPGRADE_PROPERTY_EXE = "C:\\Users\\Colton\\Documents\\sooner-monopoly\\Monopoly\\MonopolyUnity\\Resources\\ACL2Modules\\UpgradeProperty.exe";
+	private readonly string BUY_PROPERTY_EXE = @"C:\Users\Colton\Documents\sooner-monopoly\Monopoly\MonopolyUnity\Resources\ACL2Modules\BuyBat.bat"; 
+	private readonly string ROLL_DICE_EXE = @"C:\Users\Colton\Documents\sooner-monopoly\Monopoly\MonopolyUnity\Resources\ACL2Modules\RollBat.bat";
+	private readonly string MOVE_PLAYER_EXE = @"C:\Users\Colton\Documents\sooner-monopoly\Monopoly\MonopolyUnity\Resources\ACL2Modules\MoveBat.bat";
+	private readonly string PAY_PLAYER_EXE = @"C:\Users\Colton\Documents\sooner-monopoly\Monopoly\MonopolyUnity\Resources\ACL2Modules\PayBat.bat";
+	private readonly string UPGRADE_PROPERTY_EXE = @"C:\Users\Colton\Documents\sooner-monopoly\Monopoly\MonopolyUnity\Resources\ACL2Modules\UpgradeBat.bat";
 
 	public void Awake()
 	{
@@ -39,24 +39,72 @@ public class ACL2Manager : MonoBehaviour {
 	{
 		asset = Resources.Load("/ACL2Modules/"+operativeFileName+".txt") as TextAsset;
 		writer = new StreamWriter("Resources/ACL2Modules/"+operativeFileName+".txt");
+
 		foreach(string arg in args)
 		{
 			writer.Write(arg);
 		}
 		writer.Close ();
 
+		UnityEngine.Debug.LogWarning(Application.absoluteURL);
+		UnityEngine.Debug.LogWarning(Application.dataPath);
+		UnityEngine.Debug.LogWarning(Application.persistentDataPath);
+		UnityEngine.Debug.LogWarning(Application.streamingAssetsPath);
+		UnityEngine.Debug.LogWarning(Application.temporaryCachePath);
+
 		Process p = new Process();
 
 		//Do file io to write args and then call exe
 		switch(choice)
 		{
+		case ACL2Options.BuyProperty:
+		{
+			try{
+				p.StartInfo.FileName = BUY_PROPERTY_EXE;
+			}
+			catch(Exception e)
+			{
+				UnityEngine.Debug.LogError (e);
+			}
+			break;
+		}
+		case ACL2Options.MovePlayer:
+		{
+			try{
+				p.StartInfo.FileName = MOVE_PLAYER_EXE;
+			}
+			catch(Exception e)
+			{
+				UnityEngine.Debug.LogError (e);
+			}
+			break;
+		}
+		case ACL2Options.PayPlayer:
+		{
+			try{
+				p.StartInfo.FileName = PAY_PLAYER_EXE;
+			}
+			catch(Exception e)
+			{
+				UnityEngine.Debug.LogError (e);
+			}
+			break;
+		}
+		case ACL2Options.UpgradeProperty:
+		{
+			try{
+				p.StartInfo.FileName = UPGRADE_PROPERTY_EXE;
+			}
+			catch(Exception e)
+			{
+				UnityEngine.Debug.LogError (e);
+			}
+			break;
+		}
 		case ACL2Options.RollDice:
 		{
 		try{
 				p.StartInfo.FileName = ROLL_DICE_EXE;
-				
-				p.Start();
-			//myProcess.WaitForExit();
 			}
 		catch(Exception e)
 		{
@@ -68,7 +116,7 @@ public class ACL2Manager : MonoBehaviour {
 			break;
 		}
 
-
+		p.Start();
 		yield return 0;
 	}
 }
