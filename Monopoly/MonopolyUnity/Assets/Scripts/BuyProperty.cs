@@ -10,6 +10,7 @@ public class BuyProperty : MonoBehaviour {
 		int propertyPrice = GameManager.instance.spaces[propertyBuying].price;
 
 		GameManager.instance.spaces[propertyBuying].owned = true;
+		GameManager.instance.spaces[propertyBuying].playerIDWhoOwns = playerIDBuying;
 
 		string[] buyArguments = {playerIDBuying.ToString() + " ",propertyBuying.ToString()};
 		string[] payArguments = {playerIDBuying.ToString() + " -",propertyPrice.ToString()};
@@ -18,5 +19,6 @@ public class BuyProperty : MonoBehaviour {
 		StartCoroutine(ACL2Manager.instance.RunACL2(ACL2Manager.ACL2Options.PayPlayer, payArguments));
 
 		GameManager.instance.UpdatePlayer(playerIDBuying, false);
+		//this.gameObject.GetComponent<UIButton>().isEnabled = false;
 	}
 }

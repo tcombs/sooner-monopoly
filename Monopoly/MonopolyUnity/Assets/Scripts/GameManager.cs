@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
 
 	private static readonly string PLAYER_STATE_PATH = "Resources/ACL2Modules/player_state.txt";
 	private static readonly string PROPERTY_DATA = "Resources/PROPERTIES.txt";
+	private static readonly string PROPERTY_NAME_DATA = "Resources/PROPERTYNAMES.txt";
 
 	[HideInInspector]
 	public int currentTurnPlayerID;
@@ -48,6 +49,9 @@ public class GameManager : MonoBehaviour
 			currentTurnPlayerID = 1;
 		else
 			currentTurnPlayerID++;
+
+		//GameObject.Find ("BuyPropertyButton").GetComponent<UIButton>().isEnabled = false;
+		//GameObject.Find ("RollButton").GetComponent<UIButton>().isEnabled = true;
 	}
 
 	public void UpdatePlayer(int playerID, bool newGameChange)
@@ -156,6 +160,20 @@ public class GameManager : MonoBehaviour
 			for(int i = 5; i < 11; i++)
 				spaces[idToModify].rentValues.Add(int.Parse(lineContents[i]));
 
+		}
+
+
+		StreamReader sr2 = new StreamReader(PROPERTY_NAME_DATA);
+		string fileContents2 = sr2.ReadToEnd();
+		sr2.Close();
+
+		string[] lines2 = fileContents2.Split("\n"[0]);
+		foreach(string line in lines2)
+		{
+			string[] lineData = line.Split(' ');
+			int id  = int.Parse(lineData[0]);
+
+			spaces[id].propName = lineData[1].Replace("_"," ").Replace("\r","");
 		}
 	}
 }

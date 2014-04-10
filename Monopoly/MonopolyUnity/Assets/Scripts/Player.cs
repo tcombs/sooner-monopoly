@@ -4,6 +4,7 @@ using System.Collections;
 public class Player : MonoBehaviour 
 {
 	public int playerID;
+	//public string playerName;
 	public int spaceOn;
 	public int money;
 	public int numOfGOJCards;
