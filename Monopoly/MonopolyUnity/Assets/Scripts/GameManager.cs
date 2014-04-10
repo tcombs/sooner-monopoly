@@ -37,23 +37,9 @@ public class GameManager : MonoBehaviour
 		UpdatePlayer (3, true);
 
 		currentTurnPlayerID = player1.playerID;
-
-		/*try{
-			Process myProcess = new Process();
-			myProcess.StartInfo.FileName = "C:\\Users\\Colton\\Documents\\sooner-monopoly\\Monopoly\\MonopolyUnity\\Assets\\ACL2Modules\\BuyProperty.exe";
-
-			myProcess.Start();
-			//myProcess.WaitForExit();
-		}
-		catch(Exception e)
-		{
-			UnityEngine.Debug.LogError (e);
-		}
-
-		UnityEngine.Debug.Log("Finished process");*/
 	}
 
-	public void UpdatePlayer(int playerID, bool import)
+	public void UpdatePlayer(int playerID, bool newGameChange)
 	{
 		StreamReader sr = new StreamReader(PLAYER_STATE_PATH);
 		string fileContents = sr.ReadToEnd();
@@ -70,6 +56,7 @@ public class GameManager : MonoBehaviour
 			player1.money = int.Parse(player1States[2]);
 			player1.numOfGOJCards = int.Parse(player1States[3]);
 			player1.numOfRollsInJail = int.Parse(player1States[4]);
+			player1.ValuesChanged(newGameChange);
 			break;
 		case 1:
 			string[] player2States = lines[1].Split(' ');
@@ -78,6 +65,7 @@ public class GameManager : MonoBehaviour
 			player2.money = int.Parse(player2States[2]);
 			player2.numOfGOJCards = int.Parse(player2States[3]);
 			player2.numOfRollsInJail = int.Parse(player2States[4]);
+			player2.ValuesChanged(newGameChange);
 			break;
 		case 2:
 			string[] player3States = lines[2].Split(' ');
@@ -86,6 +74,7 @@ public class GameManager : MonoBehaviour
 			player3.money = int.Parse(player3States[2]);
 			player3.numOfGOJCards = int.Parse(player3States[3]);
 			player3.numOfRollsInJail = int.Parse (player3States[4]);
+			player3.ValuesChanged(newGameChange);
 			break;
 		case 3:
 			string[] player4States = lines[3].Split(' ');
@@ -94,10 +83,23 @@ public class GameManager : MonoBehaviour
 			player4.money = int.Parse(player4States[2]);
 			player4.numOfGOJCards = int.Parse(player4States[3]);
 			player4.numOfRollsInJail = int.Parse(player4States[4]);
+			player4.ValuesChanged(newGameChange);
 			break;
 		default:
 			//Debug.LogError("Import error in GameManager");
 			break;
 		}
+	}
+
+	public Player GetPlayerOnSpace(int spaceID)
+	{
+		if(player1.spaceOn = spaceID)
+			return player1;
+		else if(player2.spaceOn = spaceID)
+			return player2;
+		else if(player3.spaceOn = spaceID)
+			return player3;
+		else if(player4.spaceOn = spacesID)
+			return player4;
 	}
 }

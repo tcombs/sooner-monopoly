@@ -17,6 +17,7 @@ public class RollDice : MonoBehaviour {
 		string[] args = {playerIDRolled.ToString()+" " ,randDie1.ToString()+" ", randDie2.ToString()};
 		StartCoroutine(ACL2Manager.instance.RunACL2(ACL2Manager.ACL2Options.RollDice, args));
 
+		//In place of calling the roll module()
 		GameManager.instance.spaces[(randDie1+randDie2+GameManager.instance.player1.spaceOn)%41].GetComponentInChildren<MoveTokenToSpace>().TriggerMove();
 		GameManager.instance.player1.spaceOn = (randDie1+randDie2+GameManager.instance.player1.spaceOn)%41;
 	}
