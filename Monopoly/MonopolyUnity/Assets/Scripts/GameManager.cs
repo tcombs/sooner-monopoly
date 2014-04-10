@@ -93,13 +93,15 @@ public class GameManager : MonoBehaviour
 
 	public Player GetPlayerOnSpace(int spaceID)
 	{
-		if(player1.spaceOn = spaceID)
+		if(player1.spaceOn == spaceID)
 			return player1;
-		else if(player2.spaceOn = spaceID)
+		else if(player2.spaceOn == spaceID)
 			return player2;
-		else if(player3.spaceOn = spaceID)
+		else if(player3.spaceOn == spaceID)
 			return player3;
-		else if(player4.spaceOn = spacesID)
+		else
 			return player4;
+
+
 	}
 }

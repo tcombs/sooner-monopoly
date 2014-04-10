@@ -25,7 +25,7 @@ public class ACL2Manager : MonoBehaviour {
 	}
 	
 	private readonly string BUY_PROPERTY_EXE = "C:\\Users\\Colton\\Documents\\sooner-monopoly\\Monopoly\\MonopolyUnity\\Resources\\ACL2Modules\\BuyProperty.exe"; 
-	private readonly string ROLL_DICE_EXE = @"C:\Users\Colton\Documents\sooner-monopoly\Monopoly\MonopolyUnity\Resources\ACL2Modules\Roll";
+	private readonly string ROLL_DICE_EXE = @"C:\Users\colto_000\Documents\sooner-monopoly\Monopoly\MonopolyUnity\Resources\ACL2Modules\RollBat.bat";
 	private readonly string MOVE_PLAYER_EXE = "C:\\Users\\Colton\\Documents\\sooner-monopoly\\Monopoly\\MonopolyUnity\\Resources\\ACL2Modules\\MovePlayerTo.exe";
 	private readonly string PAY_PLAYER_EXE = "C:\\Users\\Colton\\Documents\\sooner-monopoly\\Monopoly\\MonopolyUnity\\Resources\\ACL2Modules\\PayToPlayer.exe";
 	private readonly string UPGRADE_PROPERTY_EXE = "C:\\Users\\Colton\\Documents\\sooner-monopoly\\Monopoly\\MonopolyUnity\\Resources\\ACL2Modules\\UpgradeProperty.exe";
@@ -45,12 +45,6 @@ public class ACL2Manager : MonoBehaviour {
 		}
 		writer.Close ();
 
-		ProcessStartInfo pInfo = new ProcessStartInfo();
-		pInfo.CreateNoWindow = false;
-		pInfo.UseShellExecute = false;
-		pInfo.RedirectStandardError = true;
-		pInfo.RedirectStandardOutput = true;
-
 		Process p = new Process();
 
 		//Do file io to write args and then call exe
@@ -59,13 +53,9 @@ public class ACL2Manager : MonoBehaviour {
 		case ACL2Options.RollDice:
 		{
 		try{
-				pInfo.FileName = ROLL_DICE_EXE;
-				p.StartInfo = pInfo;
+				p.StartInfo.FileName = ROLL_DICE_EXE;
 				
 				p.Start();
-				string errorMessage = p.StandardError.ReadToEnd();
-				if(errorMessage != "")
-					UnityEngine.Debug.LogError(errorMessage);
 			//myProcess.WaitForExit();
 			}
 		catch(Exception e)
