@@ -42,6 +42,14 @@ public class GameManager : MonoBehaviour
 		currentTurnPlayerID = player1.playerID;
 	}
 
+	public void ProgressToNextTurn()
+	{
+		if(currentTurnPlayerID + 1 == 5)
+			currentTurnPlayerID = 1;
+		else
+			currentTurnPlayerID++;
+	}
+
 	public void UpdatePlayer(int playerID, bool newGameChange)
 	{
 		StreamReader sr = new StreamReader(PLAYER_STATE_PATH);

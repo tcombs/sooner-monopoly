@@ -18,11 +18,6 @@ public class Property : MonoBehaviour {
 	void Start () {
 		rentValues = new List<int>();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
 	public void OnLand()
 	{

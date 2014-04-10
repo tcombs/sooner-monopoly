@@ -23,5 +23,6 @@ public class RollDice : MonoBehaviour {
 		Player playerRolled = GameManager.instance.GetPlayerWithID(playerIDRolled);
 
 		GameManager.instance.spaces[playerRolled.spaceOn].OnLand();
+		GameManager.instance.ProgressToNextTurn();
 	}
 }
