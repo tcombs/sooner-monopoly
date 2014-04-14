@@ -16,10 +16,12 @@ public class Property : MonoBehaviour {
 	public bool owned = false;
 	public int playerIDWhoOwns = 0;
 	public UIButton buyPropButton;
+	public UIButton propButton;
 
 	// Use this for initialization
 	void Start () {
 		rentValues = new List<int>();
+		propButton.isEnabled = true;
 	}
 
 	public void OnLand()

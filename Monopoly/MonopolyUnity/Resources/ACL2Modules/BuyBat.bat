@@ -1,1 +1,2 @@
-START cmd /c "cd Resources/ACL2Modules & BuyProperty.exe"
+START CMD /c "cd Resources/ACL2Modules & BuyProperty.exe"
+EXIT

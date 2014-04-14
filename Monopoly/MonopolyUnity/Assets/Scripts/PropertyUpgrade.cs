@@ -7,6 +7,8 @@ public class PropertyUpgrade : MonoBehaviour {
 	{
 		Property parent = transform.parent.GetComponent<Property>();
 
+		Debug.Log("Clicked");
+
 		if(GameManager.instance.upgradingProperty == true && parent.upgradeLevel != 6 && GameManager.instance.currentTurnPlayerID == parent.playerIDWhoOwns
 		   && GameManager.instance.GetPlayerWithID(GameManager.instance.currentTurnPlayerID).money > parent.upgradePrice)
 		{
