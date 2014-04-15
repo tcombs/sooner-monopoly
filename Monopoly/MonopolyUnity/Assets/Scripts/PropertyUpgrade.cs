@@ -3,24 +3,24 @@ using System.Collections;
 
 public class PropertyUpgrade : MonoBehaviour {
 
+	public PopupInfo currentPropertyInfo;
+	private Property currentPropertyUpgrading;
+	private Player player;
+
+	public void InitializeSequence()
+	{
+		currentPropertyUpgrading = GameManager.instance.spaces[currentPropertyInfo.playerProps[currentPropertyInfo.currentProperty].id];
+		player = GameManager.instance.GetPlayerWithID(GameManager.instance.currentTurnPlayerID);
+	}
+
 	void OnClick()
 	{
-		Property parent = transform.parent.GetComponent<Property>();
-
 		Debug.Log("Clicked");
 
-		if(GameManager.instance.upgradingProperty == true && parent.upgradeLevel != 6 && GameManager.instance.currentTurnPlayerID == parent.playerIDWhoOwns
-		   && GameManager.instance.GetPlayerWithID(GameManager.instance.currentTurnPlayerID).money > parent.upgradePrice)
-		{
-			string[] args = {parent.id.ToString()};
-			string[] payArgs = {GameManager.instance.currentTurnPlayerID.ToString() + " ", parent.upgradePrice.ToString()};
+		if(player.money > currentPropertyUpgrading.upgradePrice && currentPropertyUpgrading.upgradeLevel < 6)
+			this.gameObject.GetComponent<UIButton>().isEnabled = true;
+		else
+			this.gameObject.GetComponent<UIButton>().isEnabled = false;
 
-			StartCoroutine(ACL2Manager.instance.RunACL2(ACL2Manager.ACL2Options.UpgradeProperty, args));
-			StartCoroutine(ACL2Manager.instance.RunACL2(ACL2Manager.ACL2Options.PayPlayer, payArgs));
-			GameManager.instance.UpdatePlayer(GameManager.instance.currentTurnPlayerID, false);
-			GameManager.instance.UpdatePropertyState();
-
-			GameManager.instance.upgradingProperty = false;
-		}
 	}
 }

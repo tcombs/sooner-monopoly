@@ -23,8 +23,8 @@ public class MoveTokenToSpace : MonoBehaviour {
 		go.transform.localRotation = new Quaternion(parent.localRotation.x, parent.localRotation.y, parent.localRotation.z,
 		                                            parent.localRotation.w);
 
-		Vector3 nextLocal = new Vector3(parent.localPosition.x+spaceObject.localPosition.x+0.25f
-		                                , 0.0f, parent.localPosition.z+spaceObject.localPosition.z+0.25f);
+		Vector3 nextLocal = new Vector3(parent.localPosition.x+spaceObject.localPosition.x
+		                                , 0.0f, parent.localPosition.z+spaceObject.localPosition.z+0.75f);
 
 		/*List<Vector3> path = new List<Vector3>();
 

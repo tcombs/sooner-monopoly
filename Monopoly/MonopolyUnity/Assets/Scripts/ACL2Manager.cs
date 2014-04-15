@@ -35,7 +35,7 @@ public class ACL2Manager : MonoBehaviour {
 		_instance = this;
 	}
 
-	public IEnumerator RunACL2(ACL2Options choice, string[] args)
+	public void RunACL2(ACL2Options choice, string[] args)
 	{
 		asset = Resources.Load("/ACL2Modules/"+operativeFileName+".txt") as TextAsset;
 		writer = new StreamWriter("Resources/ACL2Modules/"+operativeFileName+".txt");
@@ -45,12 +45,6 @@ public class ACL2Manager : MonoBehaviour {
 			writer.Write(arg);
 		}
 		writer.Close ();
-
-		UnityEngine.Debug.LogWarning(Application.absoluteURL);
-		UnityEngine.Debug.LogWarning(Application.dataPath);
-		UnityEngine.Debug.LogWarning(Application.persistentDataPath);
-		UnityEngine.Debug.LogWarning(Application.streamingAssetsPath);
-		UnityEngine.Debug.LogWarning(Application.temporaryCachePath);
 
 		Process p = new Process();
 
@@ -119,6 +113,5 @@ public class ACL2Manager : MonoBehaviour {
 		p.Start();
 		p.WaitForExit();
 		p.Close();
-		yield return 0;
 	}
 }

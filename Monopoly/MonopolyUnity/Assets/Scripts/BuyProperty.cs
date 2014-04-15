@@ -15,10 +15,11 @@ public class BuyProperty : MonoBehaviour {
 		string[] buyArguments = {playerIDBuying.ToString() + " ",propertyBuying.ToString()};
 		string[] payArguments = {playerIDBuying.ToString() + " -",propertyPrice.ToString()};
 
-		StartCoroutine(ACL2Manager.instance.RunACL2(ACL2Manager.ACL2Options.BuyProperty, buyArguments));
-		StartCoroutine(ACL2Manager.instance.RunACL2(ACL2Manager.ACL2Options.PayPlayer, payArguments));
+		ACL2Manager.instance.RunACL2(ACL2Manager.ACL2Options.BuyProperty, buyArguments);
+		ACL2Manager.instance.RunACL2(ACL2Manager.ACL2Options.PayPlayer, payArguments);
 
 		GameManager.instance.UpdatePlayer(playerIDBuying, false);
+		GameManager.instance.UpdatePropertyState();
 		//this.gameObject.GetComponent<UIButton>().isEnabled = false;
 	}
 }

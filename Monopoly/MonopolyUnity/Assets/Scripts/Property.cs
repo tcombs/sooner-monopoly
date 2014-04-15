@@ -17,6 +17,7 @@ public class Property : MonoBehaviour {
 	public int playerIDWhoOwns = 0;
 	public UIButton buyPropButton;
 	public UIButton propButton;
+	public Color propertyColor;
 
 	// Use this for initialization
 	void Start () {
@@ -26,6 +27,8 @@ public class Property : MonoBehaviour {
 
 	public void OnLand()
 	{
+		GameManager.instance.GetPlayerWithID(GameManager.instance.currentTurnPlayerID).spaceOn = id;
+
 		Debug.Log("landed on prop " + propName);
 
 		if(propName == "Chance")
@@ -55,7 +58,7 @@ public class Property : MonoBehaviour {
 			int moneyGained = Random.Range(5,11);
 
 			string[] args = {GameManager.instance.currentTurnPlayerID + " ", (moneyGained*10).ToString()};
-			StartCoroutine(ACL2Manager.instance.RunACL2(ACL2Manager.ACL2Options.PayPlayer, args));
+			ACL2Manager.instance.RunACL2(ACL2Manager.ACL2Options.PayPlayer, args);
 			
 			GameManager.instance.UpdatePlayer(GameManager.instance.currentTurnPlayerID, false);
 
@@ -67,7 +70,7 @@ public class Property : MonoBehaviour {
 			int moneyLost = Random.Range(5,11);
 
 			string[] args = {GameManager.instance.currentTurnPlayerID + " -", (moneyLost*10).ToString()};
-			StartCoroutine(ACL2Manager.instance.RunACL2(ACL2Manager.ACL2Options.PayPlayer, args));
+			ACL2Manager.instance.RunACL2(ACL2Manager.ACL2Options.PayPlayer, args);
 			
 			GameManager.instance.UpdatePlayer(GameManager.instance.currentTurnPlayerID, false);
 
@@ -82,11 +85,12 @@ public class Property : MonoBehaviour {
 			}
 
 			string[] args = {GameManager.instance.currentTurnPlayerID + " ", spaceToMoveTo.ToString()};
-			StartCoroutine(ACL2Manager.instance.RunACL2(ACL2Manager.ACL2Options.MovePlayer, args));
+			ACL2Manager.instance.RunACL2(ACL2Manager.ACL2Options.MovePlayer, args);
 
 			GameManager.instance.UpdatePlayer(GameManager.instance.currentTurnPlayerID, false);
 
 			GameManager.instance.spaces[spaceToMoveTo].gameObject.GetComponentInChildren<MoveTokenToSpace>().TriggerMove();
+			GameManager.instance.spaces[spaceToMoveTo].OnLand();
 
 			Debug.Log("Move to space " + spaceToMoveTo);
 		}
@@ -97,7 +101,7 @@ public class Property : MonoBehaviour {
 		int moneyValue = Random.Range(1,6);
 
 		string[] args = {GameManager.instance.currentTurnPlayerID + " ", (moneyValue*100).ToString()};
-		StartCoroutine(ACL2Manager.instance.RunACL2(ACL2Manager.ACL2Options.PayPlayer, args));
+		ACL2Manager.instance.RunACL2(ACL2Manager.ACL2Options.PayPlayer, args);
 
 		GameManager.instance.UpdatePlayer(GameManager.instance.currentTurnPlayerID, false);
 

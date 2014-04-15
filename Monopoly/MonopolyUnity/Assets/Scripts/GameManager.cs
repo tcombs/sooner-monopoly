@@ -14,7 +14,15 @@ public class GameManager : MonoBehaviour
 	public Player player3;
 	public Player player4;
 
+	private List<Property> player1Props = new List<Property>();
+	private List<Property> player2Props = new List<Property>();
+	private List<Property> player3Props = new List<Property>();
+	private List<Property> player4Props = new List<Property>();
+
+	[HideInInspector]
 	public bool upgradingProperty = false;
+
+	[HideInInspector]
 	public bool tradingProperty = false;
 
 	public List<Property> spaces; 
@@ -53,6 +61,9 @@ public class GameManager : MonoBehaviour
 			currentTurnPlayerID = 1;
 		else
 			currentTurnPlayerID++;
+
+		GameObject.Find ("EndTurnButton").GetComponent<UIButton>().isEnabled = false;
+		GameObject.Find("RollButton").GetComponent<UIButton>().isEnabled = true;
 	}
 
 	public void UpdatePlayer(int playerID, bool newGameChange)
@@ -154,6 +165,7 @@ public class GameManager : MonoBehaviour
 			formattedLine = formattedLine.Replace("\n","");
 			string[] lineContents = formattedLine.Split(' ');
 			int idToModify = int.Parse(lineContents[0]);
+			spaces[idToModify].id = idToModify;
 			spaces[idToModify].price = int.Parse(lineContents[1]);
 			spaces[idToModify].upgradePrice = int.Parse(lineContents[2]);
 			spaces[idToModify].mortgageValue = int.Parse(lineContents[3]);
@@ -213,7 +225,52 @@ public class GameManager : MonoBehaviour
 				spaces[idToModify].isMortgaged = int.Parse(lineContents[3]) == 0;
 			}
 		}
-
 		sr.Close();
+		UpdateActiveProperties();
 	}
+
+	public void UpdateActiveProperties()
+	{
+		foreach(Property p in spaces)
+		{
+			switch(p.playerIDWhoOwns)
+			{
+			case 1:
+				player1Props.Add(p);
+				break;
+			case 2:
+				player2Props.Add(p);
+				break;
+			case 3:
+				player3Props.Add(p);
+				break;
+			case 4:
+				player4Props.Add(p);
+				break;
+			default:
+				if(p.playerIDWhoOwns > 0)
+					Debug.LogError(p.playerIDWhoOwns + " is not a valid player in the game");
+				break;
+			}
+		}
+	}
+
+	public List<Property> GetPlayerPropertyList(int playerID)
+	{
+		if(playerID == 1)
+			return player1Props;
+		else if(playerID == 2)
+			return player2Props;
+		else if(playerID == 3)
+			return player3Props;
+		else if(playerID == 4)
+			return player4Props;
+		else
+		{
+			Debug.LogError("The given player id is not a valid player: " + playerID);
+			return new List<Property>();
+		}
+
+
+	}                               
 }

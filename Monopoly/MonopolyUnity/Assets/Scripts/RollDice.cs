@@ -15,13 +15,14 @@ public class RollDice : MonoBehaviour {
 		Player playerRolled = GameManager.instance.GetPlayerWithID(GameManager.instance.currentTurnPlayerID);
 	
 		string[] args = {playerRolled.playerID.ToString()+" " ,randDie1.ToString()+" ", randDie2.ToString()};
-		StartCoroutine(ACL2Manager.instance.RunACL2(ACL2Manager.ACL2Options.RollDice, args));
+		ACL2Manager.instance.RunACL2(ACL2Manager.ACL2Options.RollDice, args);
 
 		GameManager.instance.spaces[playerRolled.spaceOn+randDie1+randDie2].gameObject.GetComponentInChildren<MoveTokenToSpace>().TriggerMove();
 		GameManager.instance.spaces[playerRolled.spaceOn+randDie1+randDie2].OnLand();
 
 		//In place of calling the roll module()
-		GameManager.instance.UpdatePlayer(playerRolled.playerID, false);
-		//this.gameObject.GetComponent<UIButton>().isEnabled = false;
+		//GameManager.instance.UpdatePlayer(playerRolled.playerID, false);
+		this.gameObject.GetComponent<UIButton>().isEnabled = false;
+		GameObject.Find ("EndTurnButton").GetComponent<UIButton>().isEnabled = true;
 	}
 }
