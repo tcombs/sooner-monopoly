@@ -27,10 +27,10 @@ public class GameManager : MonoBehaviour
 
 	public List<Property> spaces; 
 
-	private static readonly string PLAYER_STATE_PATH = "Resources/ACL2Modules/player_state.txt";
-	private static readonly string PROPERTY_STATE_PATH = "Resources/ACL2Modules/prop_state.txt";
-	private static readonly string PROPERTY_DATA = "Resources/PROPERTIES.txt";
-	private static readonly string PROPERTY_NAME_DATA = "Resources/PROPERTYNAMES.txt";
+	private static readonly string PLAYER_STATE_PATH = @"C:\ACLResources\player_state.txt";
+	private static readonly string PROPERTY_STATE_PATH = @"C:\ACLResources\prop_state.txt";
+	private static readonly string PROPERTY_DATA = @"C:\ACLResources\PROPERTIES.txt";
+	private static readonly string PROPERTY_NAME_DATA = @"C:\ACLResources\PROPERTYNAMES.txt";
 
 	[HideInInspector]
 	public int currentTurnPlayerID;

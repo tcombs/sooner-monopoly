@@ -24,11 +24,11 @@ public class ACL2Manager : MonoBehaviour {
 		UpgradeProperty
 	}
 	
-	private readonly string BUY_PROPERTY_EXE = @"C:\Users\Colton\Documents\sooner-monopoly\Monopoly\MonopolyUnity\Resources\ACL2Modules\BuyBat.bat"; 
-	private readonly string ROLL_DICE_EXE = @"C:\Users\Colton\Documents\sooner-monopoly\Monopoly\MonopolyUnity\Resources\ACL2Modules\RollBat.bat";
-	private readonly string MOVE_PLAYER_EXE = @"C:\Users\Colton\Documents\sooner-monopoly\Monopoly\MonopolyUnity\Resources\ACL2Modules\MoveBat.bat";
-	private readonly string PAY_PLAYER_EXE = @"C:\Users\Colton\Documents\sooner-monopoly\Monopoly\MonopolyUnity\Resources\ACL2Modules\PayBat.bat";
-	private readonly string UPGRADE_PROPERTY_EXE = @"C:\Users\Colton\Documents\sooner-monopoly\Monopoly\MonopolyUnity\Resources\ACL2Modules\UpgradeBat.bat";
+	private readonly string BUY_PROPERTY_EXE = @"C:\ACLResources\BuyBat.bat"; 
+	private readonly string ROLL_DICE_EXE = @"C:\ACLResources\RollBat.bat";
+	private readonly string MOVE_PLAYER_EXE = @"C:\ACLResources\MoveBat.bat";
+	private readonly string PAY_PLAYER_EXE = @"C:\ACLResources\PayBat.bat";
+	private readonly string UPGRADE_PROPERTY_EXE = @"C:\ACLResources\UpgradeBat.bat";
 
 	public void Awake()
 	{
@@ -37,8 +37,8 @@ public class ACL2Manager : MonoBehaviour {
 
 	public void RunACL2(ACL2Options choice, string[] args)
 	{
-		asset = Resources.Load("/ACL2Modules/"+operativeFileName+".txt") as TextAsset;
-		writer = new StreamWriter("Resources/ACL2Modules/"+operativeFileName+".txt");
+		//asset = Resources.Load("/ACL2Modules/"+operativeFileName+".txt") as TextAsset;
+		writer = new StreamWriter(@"\ACLResources\"+operativeFileName+".txt");
 
 		foreach(string arg in args)
 		{

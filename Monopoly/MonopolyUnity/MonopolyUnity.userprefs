@@ -1,27 +1,25 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\NextViewLeft.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PopupInfo.cs">
     <Files>
-      <File FileName="Assets\Scripts\MoveTokenToSpace.cs" Line="26" Column="85" />
+      <File FileName="Assets\Scripts\PropertyUpgrade.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\MoveTokenToSpace.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\ACL2Manager.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\GameManager.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Property.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\PropertyUpgrade.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\DisplayProperties.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\RollDice.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\PopupInfo.cs" Line="30" Column="1" />
+      <File FileName="Assets\Scripts\PopupInfo.cs" Line="45" Column="1" />
       <File FileName="Assets\Scripts\CloseCard.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\NextCard.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\PreviousCard.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\BuyProperty.cs" Line="1" Column="1" />
       <File FileName="Assets\NGUI\Scripts\UI\UICamera.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\NextViewRight.cs" Line="28" Column="46" />
-      <File FileName="Assets\Scripts\NextViewLeft.cs" Line="48" Column="105" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="C:\Users\Colton\Documents\sooner-monopoly\Monopoly\MonopolyUnity\Assets\Scripts\PropertyUpgrade.cs" line="8" />
       <Breakpoint file="C:\Users\Colton\Documents\sooner-monopoly\Monopoly\MonopolyUnity\Assets\Scripts\BuyProperty.cs" line="8" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
